@@ -42,16 +42,9 @@ function App() {
   return (
     <div className="App">
       <PostForm create={createPost} />
-
       <hr style={{ margin: '15px' }} />
-
       <PostsFilter filter={filter} setFilter={setFilter} />
-
-      {sortedAndSearchedPosts.length !== 0
-        ? <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Список постовв' />
-        : <div>Постов нет</div>
-      }
-
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Список постовв' />
     </div>
   );
 }
