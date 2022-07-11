@@ -7,21 +7,32 @@ import './styles/App.css';
 import MyButton from './UI/button/MyButton';
 import Modal from './UI/modal/Modal';
 import { usePosts } from './hooks/usePosts'
+import axios from 'axios';
+import PostService from './API/PostService';
+import Loader from './UI/loader/Loader';
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'пJs', body: 'description description' },
-    { id: 2, title: 'фJs', body: 'description description' },
-    { id: 3, title: 'уJs', body: 'description description' }
-  ]);
+  const [posts, setPosts] = useState([]);
 
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [])
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
     setModal(false)
+  }
+
+  async function fetchPosts() {
+    setIsPostsLoading(true);
+    const posts = await PostService.getAll();
+    setPosts(posts);
+    setIsPostsLoading(false);
   }
 
   const removePost = (post) => {
@@ -37,7 +48,10 @@ function App() {
 
       <hr style={{ margin: '15px' }} />
       <PostsFilter filter={filter} setFilter={setFilter} />
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Список постовв' />
+      {isPostsLoading
+        ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
+        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Список постов' />
+      }
     </div>
   );
 }
