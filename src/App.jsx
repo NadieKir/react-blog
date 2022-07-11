@@ -6,6 +6,7 @@ import PostsFilter from './components/PostsFilter';
 import './styles/App.css';
 import MyButton from './UI/button/MyButton';
 import Modal from './UI/modal/Modal';
+import { usePosts } from './hooks/usePosts'
 
 function App() {
   const [posts, setPosts] = useState([
@@ -14,18 +15,9 @@ function App() {
     { id: 3, title: 'уJs', body: 'description description' }
   ]);
 
-  const [filter, setFilter] = useState({ sort: '', query: '' })
-  const [modal, setModal] = useState(false)
-
-  const sortedPosts = useMemo(() => {
-    if (filter.sort)
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
-    return posts;
-  }, [filter.sort, posts]);
-
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query));
-  }, [filter.query, sortedPosts])
+  const [filter, setFilter] = useState({ sort: '', query: '' });
+  const [modal, setModal] = useState(false);
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
