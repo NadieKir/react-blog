@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useFetching } from "../hooks/useFetching";
 import PostService from "../API/PostService";
 import Loader from '../UI/loader/Loader';
+
 
 const PostIdPage = () => {
   const params = useParams()

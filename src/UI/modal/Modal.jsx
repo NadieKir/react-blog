@@ -1,9 +1,11 @@
 import React from 'react'
+
 import cl from './Modal.module.css'
 
-function Modal({ children, visible, setVisible }) {
 
+function Modal({ children, visible, setVisible }) {
   const rootClasses = [cl.myModal];
+
   if (visible) rootClasses.push(cl.active);
 
   return (

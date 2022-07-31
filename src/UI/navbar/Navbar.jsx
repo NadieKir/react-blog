@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
 import { AuthContext } from '../../context';
 import MyButton from '../button/MyButton';
 

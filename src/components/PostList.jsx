@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 import PostItem from './PostItem';
+
 
 const PostList = ({ posts, title, remove }) => {
     if (!posts.length) {

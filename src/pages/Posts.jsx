@@ -1,27 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
 import PostsFilter from '../components/PostsFilter';
-import '../styles/App.css';
 import MyButton from '../UI/button/MyButton';
 import Modal from '../UI/modal/Modal';
+import Loader from '../UI/loader/Loader';
+import Pagination from '../UI/pagination/Pagination';
+import MySelect from '../UI/select/MySelect';
 import { usePosts } from '../hooks/usePosts'
+import { useObserver } from "../hooks/useObserver";
 import { useFetching } from '../hooks/useFetching'
 import PostService from '../API/PostService';
-import Loader from '../UI/loader/Loader';
 import { getPageCount, getPagesArray } from '../utils/pages';
-import Pagination from '../UI/pagination/Pagination';
-import { useObserver } from "../hooks/useObserver";
-import MySelect from '../UI/select/MySelect';
+
+import '../styles/App.css';
+
 
 function Posts() {
   const [posts, setPosts] = useState([]);
-
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [modal, setModal] = useState(false);
   const [totalPages, setTotalPages] = useState(0)
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
+
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
   const lastElement = useRef()
 
@@ -61,6 +64,7 @@ function Posts() {
       </Modal>
 
       <hr style={{ margin: '15px' }} />
+
       <PostsFilter filter={filter} setFilter={setFilter} />
       <MySelect
         value={limit}
@@ -77,7 +81,9 @@ function Posts() {
       {postError && <h1>Произошла ошибка</h1>}
 
       <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты про JS" />
-      <div ref={lastElement} style={{ height: 20, background: 'red' }} />
+
+      <div ref={lastElement} style={{ height: 20 }} />
+
       {isPostsLoading &&
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
       }
@@ -87,8 +93,6 @@ function Posts() {
         changePage={changePage}
         totalPages={totalPages}
       />
-
-
     </div>
   );
 }

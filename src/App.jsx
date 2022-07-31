@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react'
-import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
+
 import AppRouter from './components/AppRouter'
+import Navbar from './UI/navbar/Navbar'
 import { AuthContext } from './context'
 
-import Navbar from './UI/navbar/Navbar'
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
