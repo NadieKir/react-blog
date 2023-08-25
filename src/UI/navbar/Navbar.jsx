@@ -14,9 +14,7 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <MyButton onClick={logout}>
-        Выйти
-      </MyButton>
+      {isAuth && <MyButton onClick={logout}>Выйти</MyButton>}
       <NavLink to="/posts">Посты</NavLink>
       <NavLink to="/about">О сайте</NavLink>
     </div>

@@ -12,7 +12,7 @@ import { usePosts } from '../hooks/usePosts'
 import { useObserver } from "../hooks/useObserver";
 import { useFetching } from '../hooks/useFetching'
 import PostService from '../API/PostService';
-import { getPageCount, getPagesArray } from '../utils/pages';
+import { getPageCount } from '../utils/pages';
 
 import '../styles/App.css';
 
@@ -41,7 +41,7 @@ function Posts() {
 
   useEffect(() => {
     fetchPosts(limit, page);
-  }, [page, limit])
+  }, [page, limit, fetchPosts])
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
